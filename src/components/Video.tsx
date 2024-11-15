@@ -1,17 +1,24 @@
 import { useRef, useState, MouseEvent } from "react";
 import videoTest from "../assets/video-test.mp4";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
-import { FaPlay, FaPause } from "react-icons/fa";
+import { IoMdPlay, IoMdPause } from "react-icons/io";
 
 const Video = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handlePlayPause = () => {
     if (videoRef.current) {
       isPlaying ? videoRef.current.pause() : videoRef.current.play();
-      setIsPlaying(!isPlaying);
+
+      setIsPlaying((prev) => !prev);
+      setIsClicked(true);
+
+      setTimeout(() => {
+        setIsClicked(false);
+      }, 600);
     }
   };
 
@@ -35,6 +42,13 @@ const Video = () => {
         className="w-full h-full object-contain"
       ></video>
       <div
+        className={`absolute p-4 top-1/2 left-1/2 bg-black bg-opacity-30 rounded-full text-white ${isFullScreen ? 'text-6xl' : 'text-xl'} ${
+          isClicked ? "scale-100 opacity-100" : "scale-50 opacity-0"
+        } transition-all duration-500 -translate-x-1/2 -translate-y-1/2`}
+      >
+        {isPlaying ? <IoMdPause /> : <IoMdPlay />}
+      </div>
+      <div
         className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-30 ${
           isPlaying ? "opacity-0" : "opacity-30"
         } transition-opacity duration-500 z-50`}
@@ -43,7 +57,7 @@ const Video = () => {
           onClick={handlePlayPause}
           className="text-gray-100 cursor-pointer z-50"
         >
-          {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
+          {isPlaying ? <IoMdPause size={20} /> : <IoMdPlay size={20} />}
         </div>
         <div onClick={handleFullScreen} className="text-white cursor-pointer">
           {isFullScreen ? (
