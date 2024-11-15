@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, MouseEvent } from "react";
 import videoTest from "../assets/video-test.mp4";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { FaPlay, FaPause } from "react-icons/fa";
@@ -15,7 +15,8 @@ const Video = () => {
     }
   };
 
-  const handleFullScreen = () => {
+  const handleFullScreen = (e: MouseEvent) => {
+    e.stopPropagation();
     setIsFullScreen((prev) => !prev);
   };
   return (
@@ -34,7 +35,7 @@ const Video = () => {
         className="w-full h-full object-contain"
       ></video>
       <div
-        className={`absolute h-8 bg-black bottom-0 w-full flex items-center justify-between px-2 group-hover:opacity-30 ${
+        className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-30 ${
           isPlaying ? "opacity-0" : "opacity-30"
         } transition-opacity duration-500 z-50`}
       >
@@ -42,7 +43,7 @@ const Video = () => {
           onClick={handlePlayPause}
           className="text-gray-100 cursor-pointer z-50"
         >
-          {isPlaying ? <FaPause /> : <FaPlay />}
+          {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
         </div>
         <div onClick={handleFullScreen} className="text-white cursor-pointer">
           {isFullScreen ? (
