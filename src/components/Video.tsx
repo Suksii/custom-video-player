@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import videoTest from "../assets/video-test.mp4";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { FaPlay, FaPause } from "react-icons/fa";
@@ -21,6 +21,7 @@ const Video = () => {
   return (
     <div
       onDoubleClick={handleFullScreen}
+      onClick={handlePlayPause}
       className={` ${
         isFullScreen
           ? "w-full h-screen bg-black bg-opacity-70"
@@ -32,18 +33,23 @@ const Video = () => {
         src={videoTest}
         className="w-full h-full object-contain"
       ></video>
-      <div className="absolute h-8 bg-black bottom-0 w-full flex items-center justify-between px-2 opacity-0 transition-opacity duration-300 group-hover:opacity-50 z-50">
+      <div
+        className={`absolute h-8 bg-black bottom-0 w-full flex items-center justify-between px-2 group-hover:opacity-30 ${
+          isPlaying ? "opacity-0" : "opacity-30"
+        } transition-opacity duration-500 z-50`}
+      >
         <div
           onClick={handlePlayPause}
           className="text-gray-100 cursor-pointer z-50"
         >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </div>
-        <div
-          onClick={handleFullScreen}
-          className="text-gray-100 cursor-pointer"
-        >
-          {isFullScreen ? <MdOutlineFullscreenExit /> : <MdFullscreen />}
+        <div onClick={handleFullScreen} className="text-white cursor-pointer">
+          {isFullScreen ? (
+            <MdOutlineFullscreenExit size={30} />
+          ) : (
+            <MdFullscreen size={30} />
+          )}
         </div>
       </div>
     </div>
