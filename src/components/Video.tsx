@@ -1,4 +1,4 @@
-import { useRef, useState, MouseEvent } from "react";
+import { useRef, useState, MouseEvent, useEffect } from "react";
 import videoTest from "../assets/video-test.mp4";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
@@ -8,6 +8,23 @@ const Video = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [duration, setDuration] = useState<number>(0);
+
+  useEffect(() => {
+    const handleDuration = () => {
+      if (videoRef.current) {
+        setDuration(videoRef.current.duration);
+      }
+    };
+    if (videoRef.current) {
+      videoRef.current.addEventListener("loadedmetadata", handleDuration);
+    }
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener("loadedmetadata", handleDuration);
+      }
+    };
+  });
 
   const handlePlayPause = () => {
     if (videoRef.current) {
@@ -42,7 +59,9 @@ const Video = () => {
         className="w-full h-full object-contain"
       ></video>
       <div
-        className={`absolute p-4 top-1/2 left-1/2 bg-black bg-opacity-30 rounded-full text-white ${isFullScreen ? 'text-6xl' : 'text-xl'} ${
+        className={`absolute p-4 top-1/2 left-1/2 bg-black bg-opacity-30 rounded-full text-white ${
+          isFullScreen ? "text-6xl" : "text-xl"
+        } ${
           isClicked ? "scale-100 opacity-100" : "scale-50 opacity-0"
         } transition-all duration-500 -translate-x-1/2 -translate-y-1/2`}
       >
