@@ -22,16 +22,21 @@ const Video = () => {
     <div
       onDoubleClick={handleFullScreen}
       className={` ${
-        isFullScreen ? "w-full h-screen bg-black bg-opacity-70" : "w-[800px]"
-      } relative aspect-video`}
+        isFullScreen
+          ? "w-full h-screen bg-black bg-opacity-70"
+          : "mx-auto w-[95%] md:w-[800px]"
+      } relative aspect-video group`}
     >
       <video
         ref={videoRef}
         src={videoTest}
         className="w-full h-full object-contain"
       ></video>
-      <div className="absolute h-8 bg-black bg-opacity-50 bottom-0 w-full px-4 flex items-center justify-between">
-        <div onClick={handlePlayPause} className="text-gray-100 cursor-pointer">
+      <div className="absolute h-8 bg-black bottom-0 w-full flex items-center justify-between px-2 opacity-0 transition-opacity duration-300 group-hover:opacity-50 z-50">
+        <div
+          onClick={handlePlayPause}
+          className="text-gray-100 cursor-pointer z-50"
+        >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </div>
         <div
