@@ -1,7 +1,9 @@
+import { ChangeEvent } from "react";
+
 type VideoControlsProps = {
   currentTime: number;
   duration: number;
-  onTimeChange: () => void;
+  onTimeChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 function VideoControls({

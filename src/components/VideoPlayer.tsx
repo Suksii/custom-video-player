@@ -4,6 +4,7 @@ import { IoMdPlay, IoMdPause } from "react-icons/io";
 import PlayPause from "./PlayPause";
 import FullScreen from "./FullScreen";
 import VideoControls from "./VideoControls";
+import PlayPauseCentral from "./PlayPauseCentral";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -78,15 +79,11 @@ const VideoPlayer = () => {
         src={videoTest}
         className="w-full h-full object-contain"
       ></video>
-      <div
-        className={`absolute p-4 top-1/2 left-1/2 bg-black bg-opacity-30 rounded-full text-white ${
-          isFullScreen ? "text-6xl" : "text-xl"
-        } ${
-          isClicked ? "scale-100 opacity-100" : "scale-50 opacity-0"
-        } transition-all duration-500 -translate-x-1/2 -translate-y-1/2`}
-      >
-        {isPlaying ? <IoMdPause /> : <IoMdPlay />}
-      </div>
+      <PlayPauseCentral
+        isPlaying={isPlaying}
+        isClicked={isClicked}
+        isFullScreen={isFullScreen}
+      />
       <div
         className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-100 group-hover:bg-opacity-30 ${
           isPlaying ? "opacity-0 bg-opacity-0" : "opacity-100 bg-opacity-30"
