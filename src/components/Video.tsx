@@ -31,7 +31,7 @@ const Video = () => {
     return () => {
       if (videoRef.current) {
         videoRef.current.removeEventListener("loadedmetadata", handleDuration);
-        videoRef.current.addEventListener("timeupdate", handleTime);
+        videoRef.current.removeEventListener("timeupdate", handleTime);
       }
     };
   }, []);
@@ -59,6 +59,13 @@ const Video = () => {
   const handleFullScreen = () => {
     setIsFullScreen((prev) => !prev);
   };
+
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
   return (
     <div
       onDoubleClick={handleFullScreen}
@@ -96,16 +103,17 @@ const Video = () => {
           {isPlaying ? <IoMdPause size={20} /> : <IoMdPlay size={20} />}
         </div>
 
-        <div className="flex gap-4 items-center text-white">
-          <p>{currentTime}</p>
+        <div className="flex gap-4 items-center w-full px-8 text-white">
+          <p>{formatTime(currentTime)}</p>
           <input
             type="range"
             min={0}
             max={duration}
             value={currentTime}
             onChange={handleChange}
+            className="w-full cursor-pointer"
           />
-          <p>{duration - currentTime}</p>
+          <p>{formatTime(duration - currentTime)}</p>
         </div>
         <div onClick={handleFullScreen} className="text-white cursor-pointer">
           {isFullScreen ? (
