@@ -57,6 +57,11 @@ const Video = () => {
   };
 
   const handleFullScreen = () => {
+    if (!isFullScreen && videoRef.current?.parentElement) {
+      videoRef.current.parentElement.requestFullscreen();
+    } else if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
     setIsFullScreen((prev) => !prev);
   };
 
@@ -70,11 +75,7 @@ const Video = () => {
     <div
       onDoubleClick={handleFullScreen}
       onClick={handlePlayPause}
-      className={` ${
-        isFullScreen
-          ? "w-full h-screen bg-black bg-opacity-70"
-          : "mx-auto w-[95%] md:w-[800px]"
-      } relative aspect-video group`}
+      className="w-[95%] md:w-[800px] relative aspect-video group"
     >
       <video
         ref={videoRef}
