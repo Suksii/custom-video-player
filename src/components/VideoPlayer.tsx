@@ -5,6 +5,7 @@ import FullScreen from "./FullScreen";
 import VideoControls from "./VideoControls";
 import PlayPauseCentral from "./PlayPauseCentral";
 import useVideoPlayer from "../hooks/useVideoPlayer";
+import Rewind from "./Rewind";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -18,6 +19,8 @@ const VideoPlayer = () => {
     handleChange,
     handleFullScreen,
     handlePlayPause,
+    goBackward,
+    goForward,
   } = useVideoPlayer(videoRef);
 
   return (
@@ -43,7 +46,7 @@ const VideoPlayer = () => {
         onClick={(e: MouseEvent) => e.stopPropagation()}
       >
         <PlayPause isPlaying={isPlaying} onClick={handlePlayPause} />
-
+        <Rewind goBackward={goBackward} goForward={goForward} />
         <VideoControls
           duration={duration}
           currentTime={currentTime}

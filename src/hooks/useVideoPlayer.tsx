@@ -42,6 +42,25 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     }
   };
 
+  const goForward = () => {
+    if (videoElement.current) {
+      const newTime = Math.min(
+        videoElement.current.currentTime + 30,
+        videoElement.current.duration
+      );
+      videoElement.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const goBackward = () => {
+    if (videoElement.current) {
+      const newTime = Math.max(videoElement.current.currentTime - 30, 0);
+      videoElement.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
   const handlePlayPause = () => {
     if (videoElement.current) {
       isPlaying ? videoElement.current.pause() : videoElement.current.play();
@@ -73,6 +92,8 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     handlePlayPause,
     handleFullScreen,
     handleChange,
+    goForward,
+    goBackward,
   };
 }
 
