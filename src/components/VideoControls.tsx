@@ -23,6 +23,7 @@ function VideoControls({
       <input
         type="range"
         min={0}
+        step={0.01}
         max={duration}
         value={currentTime}
         onChange={onTimeChange}
