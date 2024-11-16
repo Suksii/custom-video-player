@@ -10,7 +10,7 @@ function PlayPause({
   onClick,
 }: PlayPauseButtonProps) {
   return (
-    <div onClick={onClick} className="text-gray-100 cursor-pointer z-50 pr-4">
+    <div onClick={onClick} className="text-gray-100 cursor-pointer z-50">
       {isPlaying ? <IoMdPause size={20} /> : <IoMdPlay size={20} />}
     </div>
   );

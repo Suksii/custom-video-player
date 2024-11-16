@@ -6,6 +6,8 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0);
 
   useEffect(() => {
     const handleDuration = () => {
@@ -74,6 +76,20 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     }
   };
 
+  const handleSound = (newVolume: number) => {
+    if (videoElement.current) {
+      setVolume(newVolume);
+      videoElement.current.volume = newVolume;
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoElement.current) {
+      setIsMuted((prev) => !prev);
+      videoElement.current.muted = isMuted;
+    }
+  };
+
   const handleFullScreen = () => {
     if (!isFullScreen && videoElement.current?.parentElement) {
       videoElement.current.parentElement.requestFullscreen();
@@ -92,6 +108,8 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     handlePlayPause,
     handleFullScreen,
     handleChange,
+    handleSound,
+    toggleMute,
     goForward,
     goBackward,
   };

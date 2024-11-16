@@ -7,7 +7,7 @@ type RewindProps = {
 
 function Rewind({ goBackward, goForward }: RewindProps) {
   return (
-    <div className="flex items-center gap-2 text-white">
+    <div className="flex items-center gap-2 text-white px-4">
       <TbRewindBackward30
         size={22}
         className="cursor-pointer"
