@@ -92,9 +92,9 @@ const Video = () => {
         {isPlaying ? <IoMdPause /> : <IoMdPlay />}
       </div>
       <div
-        className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-30 ${
-          isPlaying ? "opacity-0" : "opacity-30"
-        } transition-opacity duration-500 z-50`}
+        className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-100 group-hover:bg-opacity-30 ${
+          isPlaying ? "opacity-0 bg-opacity-0" : "opacity-100 bg-opacity-30"
+        } transition-all duration-500 z-50`}
         onClick={(e: MouseEvent) => e.stopPropagation()}
       >
         <div
