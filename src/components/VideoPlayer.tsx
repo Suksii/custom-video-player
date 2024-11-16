@@ -1,8 +1,8 @@
 import { useRef, useState, MouseEvent, useEffect, ChangeEvent } from "react";
 import videoTest from "../assets/video-test.mp4";
-import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
 import PlayPause from "./PlayPause";
+import FullScreen from "./FullScreen";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -112,13 +112,7 @@ const VideoPlayer = () => {
           />
           <p>{formatTime(duration - currentTime)}</p>
         </div>
-        <div onClick={handleFullScreen} className="text-white cursor-pointer">
-          {isFullScreen ? (
-            <MdOutlineFullscreenExit size={30} />
-          ) : (
-            <MdFullscreen size={30} />
-          )}
-        </div>
+        <FullScreen isFullScreen={isFullScreen} onClick={handleFullScreen} />
       </div>
     </div>
   );
