@@ -1,72 +1,24 @@
-import { useRef, useState, MouseEvent, useEffect, ChangeEvent } from "react";
+import { useRef, MouseEvent } from "react";
 import videoTest from "../assets/video-test.mp4";
-import { IoMdPlay, IoMdPause } from "react-icons/io";
 import PlayPause from "./PlayPause";
 import FullScreen from "./FullScreen";
 import VideoControls from "./VideoControls";
 import PlayPauseCentral from "./PlayPauseCentral";
+import useVideoPlayer from "../hooks/useVideoPlayer";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [duration, setDuration] = useState<number>(0);
-  const [currentTime, setCurrentTime] = useState<number>(0);
 
-  useEffect(() => {
-    const handleDuration = () => {
-      if (videoRef.current) {
-        setDuration(videoRef.current.duration);
-      }
-    };
-
-    const handleTime = () => {
-      if (videoRef.current) {
-        setCurrentTime(videoRef.current.currentTime);
-      }
-    };
-
-    if (videoRef.current) {
-      videoRef.current.addEventListener("loadedmetadata", handleDuration);
-      videoRef.current.addEventListener("timeupdate", handleTime);
-    }
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.removeEventListener("loadedmetadata", handleDuration);
-        videoRef.current.removeEventListener("timeupdate", handleTime);
-      }
-    };
-  }, []);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = Number(e.target.value);
-      setCurrentTime(Number(e.target.value));
-    }
-  };
-
-  const handlePlayPause = () => {
-    if (videoRef.current) {
-      isPlaying ? videoRef.current.pause() : videoRef.current.play();
-
-      setIsPlaying((prev) => !prev);
-      setIsClicked(true);
-
-      setTimeout(() => {
-        setIsClicked(false);
-      }, 600);
-    }
-  };
-
-  const handleFullScreen = () => {
-    if (!isFullScreen && videoRef.current?.parentElement) {
-      videoRef.current.parentElement.requestFullscreen();
-    } else if (document.fullscreenElement) {
-      document.exitFullscreen();
-    }
-    setIsFullScreen((prev) => !prev);
-  };
+  const {
+    isPlaying,
+    isClicked,
+    isFullScreen,
+    duration,
+    currentTime,
+    handleChange,
+    handleFullScreen,
+    handlePlayPause,
+  } = useVideoPlayer(videoRef);
 
   return (
     <div
