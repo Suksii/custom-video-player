@@ -1,10 +1,10 @@
 import "./App.css";
-import Video from "./components/Video";
+import VideoPlayer from "./components/VideoPlayer";
 
 function App() {
   return (
     <div className="h-screen flex justify-center items-center bg-gray-100">
-      <Video />
+      <VideoPlayer />
     </div>
   );
 }

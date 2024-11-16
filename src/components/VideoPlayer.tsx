@@ -2,8 +2,9 @@ import { useRef, useState, MouseEvent, useEffect, ChangeEvent } from "react";
 import videoTest from "../assets/video-test.mp4";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
+import PlayPause from "./PlayPause";
 
-const Video = () => {
+const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -97,12 +98,7 @@ const Video = () => {
         } transition-all duration-500 z-50`}
         onClick={(e: MouseEvent) => e.stopPropagation()}
       >
-        <div
-          onClick={handlePlayPause}
-          className="text-gray-100 cursor-pointer z-50"
-        >
-          {isPlaying ? <IoMdPause size={20} /> : <IoMdPlay size={20} />}
-        </div>
+        <PlayPause isPlaying={isPlaying} onClick={handlePlayPause} />
 
         <div className="flex gap-4 items-center w-full px-8 text-white">
           <p>{formatTime(currentTime)}</p>
@@ -128,4 +124,4 @@ const Video = () => {
   );
 };
 
-export default Video;
+export default VideoPlayer;
