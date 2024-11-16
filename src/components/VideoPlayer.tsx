@@ -6,6 +6,7 @@ import VideoControls from "./VideoControls";
 import PlayPauseCentral from "./PlayPauseCentral";
 import useVideoPlayer from "../hooks/useVideoPlayer";
 import Rewind from "./Rewind";
+import Sound from "./Sound";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -16,6 +17,10 @@ const VideoPlayer = () => {
     isFullScreen,
     duration,
     currentTime,
+    volume,
+    isMuted,
+    handleSound,
+    toggleMute,
     handleChange,
     handleFullScreen,
     handlePlayPause,
@@ -40,7 +45,7 @@ const VideoPlayer = () => {
         isFullScreen={isFullScreen}
       />
       <div
-        className={`absolute bg-black bottom-0 w-full flex items-center justify-between p-2 group-hover:opacity-100 group-hover:bg-opacity-30 ${
+        className={`absolute bg-black bottom-0 w-full flex items-center gap-4 p-2 group-hover:opacity-100 group-hover:bg-opacity-30 ${
           isPlaying ? "opacity-0 bg-opacity-0" : "opacity-100 bg-opacity-30"
         } transition-all duration-500 z-50`}
         onClick={(e: MouseEvent) => e.stopPropagation()}
@@ -51,6 +56,12 @@ const VideoPlayer = () => {
           duration={duration}
           currentTime={currentTime}
           onTimeChange={handleChange}
+        />
+        <Sound
+          volume={volume}
+          isMuted={isMuted}
+          onSoundChange={handleSound}
+          toggleMute={toggleMute}
         />
         <FullScreen isFullScreen={isFullScreen} onClick={handleFullScreen} />
       </div>

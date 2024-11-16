@@ -18,7 +18,7 @@ function VideoControls({
   };
 
   return (
-    <div className="flex gap-4 items-center w-full px-8 text-white">
+    <div className="flex gap-4 items-center w-full text-white">
       <p>{formatTime(currentTime)}</p>
       <input
         type="range"

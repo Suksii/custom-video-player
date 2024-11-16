@@ -80,13 +80,16 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     if (videoElement.current) {
       setVolume(newVolume);
       videoElement.current.volume = newVolume;
+      setIsMuted(newVolume === 0);
     }
   };
 
   const toggleMute = () => {
     if (videoElement.current) {
-      setIsMuted((prev) => !prev);
-      videoElement.current.muted = isMuted;
+      const muted = !isMuted;
+      setIsMuted(muted);
+      videoElement.current.muted = muted;
+      console.log("isMuted:", isMuted);
     }
   };
 
@@ -105,6 +108,8 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
     isPlaying,
     isFullScreen,
     currentTime,
+    volume,
+    isMuted,
     handlePlayPause,
     handleFullScreen,
     handleChange,
