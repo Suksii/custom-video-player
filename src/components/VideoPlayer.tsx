@@ -3,6 +3,7 @@ import videoTest from "../assets/video-test.mp4";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
 import PlayPause from "./PlayPause";
 import FullScreen from "./FullScreen";
+import VideoControls from "./VideoControls";
 
 const VideoPlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,12 +67,6 @@ const VideoPlayer = () => {
     setIsFullScreen((prev) => !prev);
   };
 
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
   return (
     <div
       onDoubleClick={handleFullScreen}
@@ -100,18 +95,11 @@ const VideoPlayer = () => {
       >
         <PlayPause isPlaying={isPlaying} onClick={handlePlayPause} />
 
-        <div className="flex gap-4 items-center w-full px-8 text-white">
-          <p>{formatTime(currentTime)}</p>
-          <input
-            type="range"
-            min={0}
-            max={duration}
-            value={currentTime}
-            onChange={handleChange}
-            className="w-full cursor-pointer"
-          />
-          <p>{formatTime(duration - currentTime)}</p>
-        </div>
+        <VideoControls
+          duration={duration}
+          currentTime={currentTime}
+          onTimeChange={handleChange}
+        />
         <FullScreen isFullScreen={isFullScreen} onClick={handleFullScreen} />
       </div>
     </div>
