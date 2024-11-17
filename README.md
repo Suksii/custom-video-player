@@ -1,7 +1,7 @@
 # Custom Video Player
 
 ## About 
-Custom Video Player
+Custom Video Player created in React, using Typesript
 
 ## Technical Details
 **Technologies Used:** React, Typescript, CSS.<br/>
