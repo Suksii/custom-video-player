@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
 type VideoControlsProps = {
   currentTime: number;
@@ -30,10 +30,10 @@ function VideoControls({
           />
         </div>
         <div
-          className="absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2"
+          className="absolute top-1/2 transform -translate-y-1/2 left-0 -translate-x-1/2"
           style={{ left: `${percentage}%` }}
         >
-          <div className="w-4 h-4 bg-gray-900 rounded-full cursor-pointer shadow-lg transition-transform duration-200 hover:scale-110" />
+          <div className="w-4 h-4 bg-gray-900 rounded-full cursor-pointer shadow-lg" />
         </div>
         <input
           type="range"
