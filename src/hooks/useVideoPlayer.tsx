@@ -7,7 +7,7 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(0);
+  const [volume, setVolume] = useState<number>(1);
 
   useEffect(() => {
     const handleDuration = () => {
