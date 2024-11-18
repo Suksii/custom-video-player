@@ -89,7 +89,6 @@ function useVideoPlayer(videoElement: RefObject<HTMLVideoElement>) {
       const muted = !isMuted;
       setIsMuted(muted);
       videoElement.current.muted = muted;
-      console.log("isMuted:", isMuted);
     }
   };
 
